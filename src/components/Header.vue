@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div id="container">
     <header id="left">
       <ul>
@@ -10,10 +11,15 @@
     <header id="right">
       <ul>
         <li>End Day</li>
-        <li>Save & Load</li>
-        <li>Funds: ${{money}}</li>
+        <li>Save & Load <img class="arrow" src="https://img.icons8.com/ios/18/000000/down2.png"></li>
+        <li class="yellow">Funds: ${{getMoney}}</li>
       </ul>
     </header>
+  </div>
+    <!--<div class="options">
+      <a>Save</a>
+      <a>Load</a>
+    </div>-->
   </div>
 </template>
 
@@ -25,6 +31,11 @@ export default {
       money: 10000,
     }
   },
+  computed: {
+    getMoney () {
+      return this.$store.getters.getMoney;
+    }
+  }
 }
 </script>
 
@@ -37,9 +48,10 @@ export default {
     padding: 2px 5px;
     margin: 0;
     border-radius: 5px;
-    border: 1px solid #ffffff;
+    border: 1px solid #e5e5e5;
     display: inline-block;
     font-size: 18px;
+    box-shadow: 0 0 3px 1px #e5e5e5;
   }
   #left{
     float: left;
@@ -59,8 +71,27 @@ export default {
   li{
     padding: 6px 12px;
   }
-  li:hover, li:active{
+  li:hover, li:active {
     color: #fca311;
     cursor: pointer;
   }
+
+  .yellow{
+    color: #fca311;
+    cursor: default;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    margin: -2px -5px -2px 0;
+  }
+  .yellow:hover{
+    cursor: default;
+  }
+  .arrow{
+    margin-bottom: -3px;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+  }
+
 </style>

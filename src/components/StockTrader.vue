@@ -4,16 +4,16 @@
         <p>You can save and load state.</p>
         <p>Click "End Day" to start new day!</p>
         <hr>
-        <p>Your funds: {{money}}</p>
+        <p>Your funds: {{getMoney}}</p>
     </div>
 </template>
 
 <script>
     export default {
         name: "StockTrader",
-        data: function () {
-            return{
-                money: 10000,
+        computed: {
+            getMoney () {
+              return this.$store.getters.getMoney;
             }
         },
     }
@@ -24,7 +24,8 @@
         background-color: #ffffff;
         color: #000;
         width: calc(100% - 20px);
-        padding: 2px 15px;
+        box-shadow: 0 0 3px 1px #e5e5e5;
+        padding: 10px 15px;
         margin-top: 15px;
         border-radius: 5px;
         border: 1px solid #e5e5e5;
