@@ -15,7 +15,7 @@
                 <hr>
                 <label>
                     <p>Amount:</p>
-                    <input type="number" :id="stock.id">
+                    <input type="number" :id="stock.id" min="1">
                 </label>
                 <button>Sell!</button>
             </li>

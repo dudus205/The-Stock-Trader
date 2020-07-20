@@ -9,7 +9,7 @@
                 <hr>
                 <label>
                     <p>Amount:</p>
-                    <input type="number" :id="stock.id">
+                    <input type="number" :id="stock.id" min="1">
                 </label>
                 <button @click="buy(stock.id)">Buy!</button>
             </li>
@@ -33,9 +33,43 @@
         },
         methods: {
             buy(id){
-                let amount = this.stocks[id-1].buy*document.getElementById(id).value;
-
-                console.log(amount);
+                let amount = parseInt(document.getElementById(id).value);
+                let value = amount * this.stocks[id].buy;
+                if(this.money - value >=0) {
+                    this.money -= value;
+                    this.$store.state.money = this.money;
+                    this.addToPortfolio(id, amount);
+                    this.$store.state.portfolio = this.portfolio;
+                    document.getElementById(id).value = "";
+                }
+            },
+            addToPortfolio(id, amount){
+                let check = false;
+                if(this.portfolio.length === 0){
+                    this.portfolio.push({
+                        id: id,
+                        name: this.stocks[id].name,
+                        amount: amount,
+                    });
+                    return;
+                }
+                else {
+                    for (let i = 0; i < this.portfolio.length; i++)
+                        if (this.portfolio[i].id === id) {
+                            this.portfolio[i].amount += amount;
+                            return;
+                        }
+                        else{
+                            check = true;
+                        }
+                }
+                if(check){
+                    this.portfolio.push({
+                        id: id,
+                        name: this.stocks[id].name,
+                        amount: amount,
+                    });
+                }
             }
         }
     }

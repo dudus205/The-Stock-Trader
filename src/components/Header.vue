@@ -11,15 +11,22 @@
     <header id="right">
       <ul>
         <li>End Day</li>
-        <li>Save & Load <img class="arrow" src="https://img.icons8.com/ios/18/000000/down2.png"></li>
+        <li @click="dropdown = !dropdown">
+          Save & Load <img class="arrow" src="https://img.icons8.com/ios/18/000000/down2.png">
+          <transition name="component-fade" mode="out-in">
+            <div class="dropdown-content" v-if="dropdown">
+              <ul>
+                <li>Save</li>
+                <li>Load</li>
+              </ul>
+            </div>
+          </transition>
+        </li>
         <li class="yellow">Funds: ${{getMoney}}</li>
       </ul>
     </header>
   </div>
-    <!--<div class="options">
-      <a>Save</a>
-      <a>Load</a>
-    </div>-->
+
   </div>
 </template>
 
@@ -29,6 +36,7 @@ export default {
   data: function () {
     return{
       money: 10000,
+      dropdown: false,
     }
   },
   computed: {
@@ -92,6 +100,28 @@ export default {
     width: 18px;
     height: 18px;
     display: inline-block;
+  }
+  .dropdown-content {
+    background-color: #e5e5e5;
+    position: absolute;
+    z-index: 1;
+    margin: 7px 0 0 4px;
+    color: #000000;
+  }
+  .dropdown-content li{
+    background-color: #e5e5e5;
+    display: block;
+    text-align: left;
+    padding: 7px;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    font-size: 18px;
+    box-shadow: 0 0 3px 1px #e5e5e5;
+    width: 70px;
+  }
+  .dropdown-content li:hover{
+    background-color: #fff;
+    color: #14213d;
   }
 
 </style>
