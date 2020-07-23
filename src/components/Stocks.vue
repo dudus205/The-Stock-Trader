@@ -39,6 +39,7 @@
                     this.money -= value;
                     this.$store.state.money = this.money;
                     this.addToPortfolio(id, amount);
+                    //console.log(this.portfolio);
                     this.$store.state.portfolio = this.portfolio;
                     document.getElementById(id).value = "";
                 }
@@ -47,15 +48,16 @@
                 let check = false;
                 if(this.portfolio.length === 0){
                     this.portfolio.push({
-                        id: id,
+                        id: 0,
                         name: this.stocks[id].name,
                         amount: amount,
+                        sell: this.stocks[id].sell,
                     });
                     return;
                 }
                 else {
                     for (let i = 0; i < this.portfolio.length; i++)
-                        if (this.portfolio[i].id === id) {
+                        if (this.portfolio[i].name === this.stocks[id].name) {
                             this.portfolio[i].amount += amount;
                             return;
                         }
@@ -65,9 +67,10 @@
                 }
                 if(check){
                     this.portfolio.push({
-                        id: id,
+                        id: this.portfolio.length,
                         name: this.stocks[id].name,
                         amount: amount,
+                        sell: this.stocks[id].sell,
                     });
                 }
             }
