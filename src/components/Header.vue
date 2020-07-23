@@ -10,14 +10,14 @@
     </header>
     <header id="right">
       <ul>
-        <li>End Day</li>
+        <li @click="endDay">End Day</li>
         <li @click="dropdown = !dropdown">
           Save & Load <img class="arrow" src="https://img.icons8.com/ios/18/000000/down2.png">
           <transition name="component-fade" mode="out-in">
             <div class="dropdown-content" v-if="dropdown">
               <ul>
-                <li>Save</li>
-                <li>Load</li>
+                <li @click="save">Save</li>
+                <li @click="load">Load</li>
               </ul>
             </div>
           </transition>
@@ -43,6 +43,17 @@ export default {
     getMoney () {
       return this.$store.getters.getMoney;
     }
+  },
+  methods:{
+      endDay (){
+          this.$store.commit('endDay');
+      },
+      save (){
+          this.$store.commit('save');
+      },
+      load (){
+          this.$store.commit('load');
+      }
   }
 }
 </script>
