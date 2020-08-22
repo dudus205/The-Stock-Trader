@@ -3,7 +3,7 @@
   <div id="container">
     <header id="left">
       <ul>
-        <router-link tag="li" to="/">Stock Trader</router-link>
+        <router-link tag="li" to="/" >Stock Trader</router-link>
         <router-link tag="li" to="/portfolio">Portfolio</router-link>
         <router-link tag="li" to="/stocks">Stocks</router-link>
       </ul>
@@ -17,7 +17,7 @@
             <div class="dropdown-content" v-if="dropdown">
               <ul>
                 <li @click="save">Save</li>
-                <li @click="load">Load</li>
+                <router-link tag="li" to="/loadData" @click="load">Load</router-link>
               </ul>
             </div>
           </transition>
@@ -26,7 +26,6 @@
       </ul>
     </header>
   </div>
-
   </div>
 </template>
 
@@ -35,7 +34,6 @@ export default {
   name: 'Header',
   data: function () {
     return{
-      money: 10000,
       dropdown: false,
     }
   },
@@ -52,7 +50,7 @@ export default {
           this.$store.commit('save');
       },
       load (){
-          this.$store.commit('load');
+          this.$store.dispatch('load');
       }
   }
 }
@@ -60,6 +58,11 @@ export default {
 
 
 <style scoped>
+  p{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+  }
   #container{
     background-color: #e5e5e5;
     color: #000;
@@ -94,14 +97,15 @@ export default {
     color: #fca311;
     cursor: pointer;
   }
-
   .yellow{
-    color: #fca311;
-    cursor: default;
-    background-color: #fff;
-    border-radius: 5px;
-    border: 2px solid #fff;
-    margin: -2px -5px -2px 0;
+      color: #fca311;
+      cursor: default;
+      background-color: #fff;
+      border-radius: 5px;
+      border: 2px solid #fff;
+      padding-left: 20px;
+      margin: -2px -5px -2px -10px;
+      clip-path: polygon(10% 0, 100% 0, 100% 100%, 4% 100%);
   }
   .yellow:hover{
     cursor: default;

@@ -9,7 +9,8 @@ Vue.use(Vuex);
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history',
 });
 
 const store = new Vuex.Store(

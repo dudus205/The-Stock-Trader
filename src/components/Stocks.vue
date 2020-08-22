@@ -1,5 +1,5 @@
 <template>
-        <ul id="content">
+        <ul id="content" >
             <h1><b>Stocks</b></h1>
             <li id="card" v-for="stock in stocks" :key="stock.name">
                 <b>{{stock.name}}</b>
@@ -123,7 +123,7 @@
         opacity: 0.9;
         font-size: 17px;
         border-radius: 3px;
-        margin: 0 10px;
+        margin: 3px 10px;
         padding: 3px 5px;
     }
     button:hover{

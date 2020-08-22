@@ -1,25 +1,25 @@
 <template>
         <div id="content">
-        <h1><b>Portfolio</b></h1>
-        <div v-if="!portfolio.length">
-            <h2>Your portfolio is empty.</h2>
-            <hr>
-            <router-link tag="a" to="/stocks">Get some actions here!</router-link>
-        </div>
-        <div v-else>
-            <li id="card" v-for="stock in portfolio" :key="stock.id">
-                <b>{{stock.name}}</b>
-                <div class="value">
-                    <p>Sell: {{stock.sell}} | You have: {{stock.amount}}</p>
-                </div>
+            <h1><b>Portfolio</b></h1>
+            <div v-if="portfolio.length > 0">
+                <li id="card" v-for="stock in portfolio" :key="stock.id">
+                    <b>{{stock.name}}</b>
+                    <div class="value">
+                        <p>Sell: {{stock.sell}} | You have: {{stock.amount}}</p>
+                    </div>
+                    <hr>
+                    <label>
+                        <p>Amount:</p>
+                        <input type="number" :id="stock.id" min="1" :max="stock.amount">
+                    </label>
+                    <button @click="sell(stock.id)">Sell!</button>
+                </li>
+            </div>
+            <div v-else>
+                <h2>Your portfolio is empty.</h2>
                 <hr>
-                <label>
-                    <p>Amount:</p>
-                    <input type="number" :id="stock.id" min="1" :max="portfolio[stock.id].amount">
-                </label>
-                <button @click="sell(stock.id)">Sell!</button>
-            </li>
-        </div>
+                <router-link tag="a" to="/stocks">Get some actions here!</router-link>
+            </div>
     </div>
 </template>
 
@@ -41,14 +41,20 @@
         methods: {
             sell(id){
                 let amount = parseInt(document.getElementById(id).value);
-                let value = amount * this.portfolio[id].sell;
-                document.getElementById(id).value = "";
-                this.portfolio[id].amount -= amount;
-                if(this.portfolio[id].amount === 0 )
-                    this.portfolio.splice(id,1);
+                let value = 0;
+                for(let i=0; i < this.portfolio.length; i++)
+                    if(this.portfolio[i].id === id){
+                        value = amount * this.portfolio[i].sell;
+                        if(this.portfolio[i].amount === amount)
+                            this.portfolio.splice(i,1);
+                        else
+                            this.portfolio[i].amount -= amount;
+                        break;
+                    }
                 this.money += value;
                 this.$store.state.portfolio = this.portfolio;
                 this.$store.state.money = this.money;
+                document.getElementById(id).value = "";
             }
         }
     }
